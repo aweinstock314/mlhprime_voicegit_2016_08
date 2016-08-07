@@ -1,5 +1,7 @@
-
 from __future__ import print_function
+
+import requests
+
 
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
@@ -67,7 +69,7 @@ def on_intent(intent_request, session):
         return listdir(intent, session)
     elif intent_name == "Change directory":
         return chandir(intent, session)
-    elif intent_name == "Directory":
+    elif intent_name == "Current directory":
         return workdir(intent, session)
     elif intent_name == "Git add":
         return gadd(intent, session)
@@ -183,6 +185,21 @@ def donothelp(intent, session):
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+
+def listdir(intent,session):
+    dirList = requests.get('http://162.243.165.89:5000/ls')
+    speech_output = dirList.text
+    return build_response({}, build_speechlet_response("list",speech_output,"",False))
+
+def chandir(intent,session):
+    dirList = requests.put('http://162.243.165.89:5000/cd',data= {"dir":intent['directory']})
+    speech_output = dirList.text
+    return build_response({}, build_speechlet_response("list",speech_output,"",False))
+
+def workdir(intent,session):
+    dirList = requests.get('http://162.243.165.89:5000/pwd')
+    speech_output = dirList.text
+    return build_response({}, build_speechlet_response("list",speech_output,"",False))
 
 # --------------- Helpers that build all of the responses ----------------------
 
