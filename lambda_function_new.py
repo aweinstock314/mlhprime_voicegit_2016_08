@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from __future__ import print_function
 
 import requests
@@ -44,7 +45,7 @@ def on_launch(launch_request, session):
     want
     """
 
-   session_attributes = {}
+    session_attributes = {}
     card_title = "Git open"
     speech_output = "Shell activated" \
     # If the user either does not reply to the welcome message or says something
@@ -53,7 +54,7 @@ def on_launch(launch_request, session):
                     "Could you repeat yourself?"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session)
+        card_title, speech_output, reprompt_text, should_end_session))
 
 
 def on_intent(intent_request, session):
