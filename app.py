@@ -7,7 +7,8 @@ import sys
 app = Flask(__name__)
 
 def premod(s):
-    return "<pre>%s</pre>" % str(s)
+    #return "<pre>%s</pre>" % str(s)
+    return str(s)
 
 def sanitize_html(s):
     s = s.replace("&", "&amp;")
@@ -46,7 +47,8 @@ def gitdiff():
 
 @app.route("/git/log", methods=["GET"])
 def gitlog():
-    return zerointeractioncmd(["git", "log"])
+    #return zerointeractioncmd(["git", "log", "--pretty=oneline"])
+    return zerointeractioncmd(["git", "log", "--pretty=format:On %ad, %an committed %B"])
 
 @app.route("/git/status", methods=["GET"])
 def gitstatus():
