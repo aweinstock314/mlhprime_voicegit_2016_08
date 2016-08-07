@@ -48,7 +48,7 @@ def gitdiff():
 @app.route("/git/log", methods=["GET"])
 def gitlog():
     #return zerointeractioncmd(["git", "log", "--pretty=oneline"])
-    return zerointeractioncmd(["git", "log", "--pretty=format:On %ad, %an committed %B"])
+    return zerointeractioncmd(["git", "log", "--pretty=format:On %ad, %an committed %B"])[:10000]
 
 @app.route("/git/status", methods=["GET"])
 def gitstatus():
