@@ -24,8 +24,9 @@ def pwd():
 @app.route("/cd", methods=["POST"])
 def cd():
     d = str(request.form.get('dir'))
-    sys.stdout.write("chdir: %r\n" % d)
-    os.chdir(d)
+    if os.access(d, os.F_OK):
+        sys.stdout.write("chdir: %r\n" % d)
+        os.chdir(d)
     return formatted_pwd()
 
-app.run()
+app.run(debug=True)
