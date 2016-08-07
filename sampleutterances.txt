@@ -6,3 +6,5 @@ GitStatus git status
 GitPush git push
 GitPull git pull
 GitCommit git commit {message}
+GitDiff git diff
+GitLog git log

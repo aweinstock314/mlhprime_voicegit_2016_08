@@ -6,5 +6,7 @@
     {"intent": "GitStatus"},
     {"intent": "GitPush"},
     {"intent": "GitPull"},
-    {"intent": "GitCommit", "slots": [{"name":"message", "type": "AMAZON.LITERAL"}]}
+    {"intent": "GitCommit", "slots": [{"name":"message", "type": "AMAZON.LITERAL"}]},
+    {"intent": "GitDiff"},
+    {"intent": "GitLog"}
 ]}

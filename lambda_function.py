@@ -83,6 +83,10 @@ def on_intent(intent_request, session):
         return gpull(intent, session)
     elif intent_name == "GitCommit":
         return gcommit(intent, session)
+    elif intent_name == "GitDiff":
+        return gdiff(intent, session)
+    elif intent_name == "GitLog":
+        return glog(intent, session)
     else:
         return donothelp(intent, session)
 
@@ -225,6 +229,12 @@ def gpull(intent, session):
 
 def gcommit(intent, session):
     return forwardPostRequest("/git/commit", data={"message":intent["message"]})
+
+def gdiff(intent, session):
+    return forwardGetRequest("/git/diff")
+
+def glog(intent, session):
+    return forwardGetRequest("/git/log")
 
 # --------------- Helpers that build all of the responses ----------------------
 
