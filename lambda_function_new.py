@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import requests
 
+BASE_URL = 'http://162.243.165.89:5000'
 
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
@@ -186,20 +187,43 @@ def donothelp(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
+# --------------- Response-Builders --------------------------------------------
+
+def genericResponse(resp):
+    speech_output = resp.text
+    return build_response({}, build_speechlet_response("list", speech_output, "", False))
+
+def forwardGetRequest(subpath):
+    return genericResponse(requests.get(BASE_URL+subpath))
+
+def forwardPostRequest(subpath, data=None):
+    return genericResponse(requests.put(BASE_URL+subpath, data=data))
+
+# --------------- Responses ----------------------------------------------------
+
 def listdir(intent,session):
-    dirList = requests.get('http://162.243.165.89:5000/ls')
-    speech_output = dirList.text
-    return build_response({}, build_speechlet_response("list",speech_output,"",False))
+    return forwardGetRequest("/ls")
 
 def chandir(intent,session):
-    dirList = requests.put('http://162.243.165.89:5000/cd',data= {"dir":intent['directory']})
-    speech_output = dirList.text
-    return build_response({}, build_speechlet_response("list",speech_output,"",False))
+    return forwardPostRequest("/cd",data={"dir":intent["directory"]})
 
 def workdir(intent,session):
-    dirList = requests.get('http://162.243.165.89:5000/pwd')
-    speech_output = dirList.text
-    return build_response({}, build_speechlet_response("list",speech_output,"",False))
+    return forwardGetRequest("/pwd")
+
+def gadd(intent, session):
+    return forwardPostRequest("/git/add", data={"filename":intent["filename"]})
+
+def gstatus(intent, session):
+    return forwardGetRequest("/git/status")
+
+def gpush(intent, session):
+    return forwardPostRequest("/git/push")
+
+def gpull(intent, session):
+    return forwardPostRequest("/git/pull")
+
+def gcommit(intent, session):
+    return forwardPostRequest("/git/commit", data={"message":intent["message"]})
 
 # --------------- Helpers that build all of the responses ----------------------
 
