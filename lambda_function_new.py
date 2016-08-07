@@ -67,21 +67,21 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "list":
+    if intent_name == "ListFiles":
         return listdir(intent, session)
-    elif intent_name == "Change directory":
+    elif intent_name == "ChangeDirectory":
         return chandir(intent, session)
-    elif intent_name == "Current directory":
+    elif intent_name == "CurrentDirectory":
         return workdir(intent, session)
-    elif intent_name == "Git add":
+    elif intent_name == "GitAdd":
         return gadd(intent, session)
-    elif intent_name == "Git status":
+    elif intent_name == "GitStatus":
         return gstatus(intent, session)
-    elif intent_name == "Git Push":
+    elif intent_name == "GitPush":
         return gpush(intent, session)
-    elif intent_name == "Git Pull":
+    elif intent_name == "GitPull":
         return gpull(intent, session)
-    elif intent_name == "Git Commit":
+    elif intent_name == "GitCommit":
         return gcommit(intent, session)
     else:
         return donothelp(intent, session)

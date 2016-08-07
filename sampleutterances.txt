@@ -1,0 +1,8 @@
+ListFiles list
+ChangeDirectory change {directory}
+CurrentDirectory where am i
+GitAdd git add {filename}
+GitStatus git status
+GitPush git push
+GitPull git pull
+GitCommit git commit {message}

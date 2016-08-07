@@ -1,0 +1,10 @@
+{"intents": [
+    {"intent": "ListFiles"},
+    {"intent": "ChangeDirectory", "slots": [{name:"directory", "type": "AMAZON.LITERAL"}]},
+    {"intent": "CurrentDirectory"},
+    {"intent": "GitAdd", "slots": [{name:"filename", "type": "AMAZON.LITERAL"}]},
+    {"intent": "GitStatus"},
+    {"intent": "GitPush"},
+    {"intent": "GitPull"},
+    {"intent": "GitCommit", "slots": [{name:"message", "type": "AMAZON.LITERAL"}]}
+]}
